@@ -1,0 +1,114 @@
+body {
+    font-family: Arial;
+}
+
+#react {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    background: no-repeat center center url("pic.jpg");
+    background-size: cover;
+}
+
+#app {
+    width: 40rem;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    background: rgba(0, 0, 0, 0.45);
+    transform: translate(-50%, -50%);
+    padding: 1rem;
+}
+
+#add {
+    font-size: 3rem;
+    background: #2745ff;
+    border: none;
+    border-radius: 50%;
+    color: #ffffff;
+    width: 3.4rem;
+    height: 3.4rem;
+    text-align: center;
+    float: left;
+    cursor: pointer;
+    transition: all 0.1s 0s linear;
+}
+
+#save {
+    font-size: 2rem;
+    border: 2px solid #ffffff;
+    background: transparent;
+    color: #ffffff;
+    float: right;
+    padding: 0.5rem;
+    cursor: pointer;
+    transition: all 0.1s 0s linear;
+}
+
+#rows {
+    margin-top: 6rem;
+    height: 60vh;
+    overflow-y: scroll;
+    width: 100%
+}
+
+.row {
+    padding: 1rem;
+    font-size: 2rem;
+    color: #ffffff;
+    border: 2px solid #ffffff;
+    width: calc(100% - 3.5rem);
+    margin-top: 0.5rem;
+}
+
+.row.changed {
+    border-color: #2745ff;
+    color: #2745ff;
+}
+
+.row.changed .row-edit {
+    border-color: #2745ff;
+}
+
+.row:last-child {
+    margin-bottom: 0.5rem;
+}
+
+.remove {
+    color: #e30039;
+    background: none;
+    border: none;
+     float: right;
+    font-size: 3rem;
+    line-height: 3rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.1s 0s linear;
+}
+
+.remove:hover, #add:hover {
+    transform: scale(1.25, 1.25);
+}
+
+#save:hover {
+    transform: scale(1.05, 1.05);
+}
+
+.row-edit {
+    background: none;
+    border: 2px solid #ffffff;
+    font-size: 2rem;
+    color: #ffffff;
+    padding: 0.25rem;
+    width: calc(100% - 4rem);
+}
+
+.row-text {
+    margin: 0.25rem;
+    border: 2px solid transparent;
+    display: inline-block;
+    width: calc(100% - 4rem);
+    cursor: text;
+}

@@ -1,8 +1,7 @@
 package com.testTask.CRUD.contollers;
 
 import com.testTask.CRUD.domain.Message;
-import com.testTask.CRUD.repository.MessageRepo;
-import org.springframework.beans.BeanUtils;
+import com.testTask.CRUD.service.MessageServiceImplementation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -14,37 +13,41 @@ import java.util.List;
 @RequestMapping("message")
 public class MessageController {
 
-    private final MessageRepo messageRepo;
 
-    @Autowired
-    public MessageController(MessageRepo messageRepo) {
-        this.messageRepo = messageRepo;
+   private final MessageServiceImplementation serviceImplementation;
+
+   @Autowired
+    public MessageController(final MessageServiceImplementation serviceImplementation) {
+        this.serviceImplementation = serviceImplementation;
     }
 
     @GetMapping
     public List<Message> list() {
-        List<Message> all = messageRepo.findAll();
+        List<Message> all = serviceImplementation.findAll();
         System.out.println(all);
         return all;
     }
 
 
     @PostMapping
-    public List<Message> add(@RequestBody List<Message> message) {
-        return messageRepo.saveAll(message);
-    }
-    @PutMapping("{id}")
-    Message upadte(@RequestBody Message message,
-                               @PathVariable("id") Message messageFromDb){
-
-        BeanUtils.copyProperties(message,messageFromDb);
-        return messageRepo.save(messageFromDb);
+    public void add(@RequestBody List<Message> message) {
+        System.out.println("post");
+        serviceImplementation.saveAll(message);
     }
 
     @DeleteMapping("{id}")
     public void delete(@PathVariable("id") BigInteger id) {
-        messageRepo.deleteById(id);
+        System.out.println("delete");
+        serviceImplementation.deleteById(id);
     }
+
+    @PutMapping
+    public void updateMessages(@RequestBody List<Message> messages)
+    {
+        serviceImplementation.updateMessages(messages);
+
+    }
+
 }
 
     

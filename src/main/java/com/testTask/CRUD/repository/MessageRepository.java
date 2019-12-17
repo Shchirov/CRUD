@@ -4,7 +4,9 @@ import com.testTask.CRUD.domain.Message;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.math.BigInteger;
+import java.util.List;
 
-public interface MessageRepo  extends JpaRepository<Message, BigInteger> {
+public interface MessageRepository extends JpaRepository<Message, BigInteger> {
 
+   List<Message> findAllByOrderByPositionDesc();
 }

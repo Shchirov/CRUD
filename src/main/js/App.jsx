@@ -6,19 +6,17 @@ class App extends React.Component {
 
     constructor(props) {
         super(props);
-        this.state = {maxPos: 0, rows: [{id: null, text: null, changed: false, position: null}]};
+        this.state = {maxPos: 0, rows: [/*{id: null, text: null, changed: false}*/]};
         this.addRow = this.addRow.bind(this);
         this.save = this.save.bind(this);
         this.remove = this.remove.bind(this);
         this.textUpdate = this.textUpdate.bind(this);
         this.updateRows = this.updateRows.bind(this);
         this.updatePos = this.updatePos.bind(this);
-        this.addedId = -1;
     }
 
     componentDidMount() {
         this.updateRows();
-        console.log(this.state.rows)
 
     }
 
@@ -36,9 +34,8 @@ class App extends React.Component {
         })
             .then(res => res.json())
             .then(res => {
-                this.setState({rows: res.map(x => ({id: x.id, text: x.text, changed: false, position:x.position}))});
-                this.state.rows.map(function(o) { updatePos(o.position) });
-                console.log(this.state.rows)
+                this.setState({rows: res.map(x => ({id: x.id, text: x.text, changed: false}))});
+                this.state.rows.map(function(o) { updatePos(o.id) });
             });
     }
 
@@ -48,20 +45,14 @@ class App extends React.Component {
 
     addRow() {
         let newRow = this.state.rows;
-        newRow.unshift({id: this.addedId, text: "", position: this.state.maxPos});
-        this.setState({maxPos: this.state.maxPos + 1});
-        this.setState({rows: newRow});
-        this.addedId -= 1;
+        newRow.unshift({id: this.state.maxPos + 1, text: ""});
+        this.setState({maxPos: this.state.maxPos + 1, rows: newRow});
     }
 
     save() {
         let data = this.state
             .rows
-            .filter(x => x.changed)
-            .map(function (r) {
-                return {id: r.id < 0 ? "null" : r.id, text: r.text, position: r.position};
-            });
-        console.log(data);
+            .filter(x => x.changed);
         fetch('http://localhost:7070/message/', {
             body: JSON.stringify(data),
             headers: {
@@ -86,7 +77,7 @@ class App extends React.Component {
                     if (r.id != id) {
                         return r;
                     } else {
-                        return {id: r.id, text: text, changed: true,position: r.position};
+                        return {id: r.id, text: text, changed: text !== r.text};
                     }
                 });
             this.setState({rows: data});
@@ -105,9 +96,8 @@ class App extends React.Component {
                         this.state
                             .rows
                             .map((row, index) => (
-                                console.log(this.state.rows),
                                     <Row id={row.id} text={row.text} remove={this.remove} key={row.id}
-                                         textUpdate={this.textUpdate} changed={row.changed}/>
+                                         added={row.text === ""} textUpdate={this.textUpdate} changed={row.changed}/>
                             ))
                     }
                 </div>

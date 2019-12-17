@@ -8,5 +8,5 @@ import java.util.List;
 
 public interface MessageRepository extends JpaRepository<Message, BigInteger> {
 
-   List<Message> findAllByOrderByPositionDesc();
+   List<Message> findAllByOrderByIdDesc();
 }

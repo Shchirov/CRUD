@@ -28,7 +28,7 @@ public class MessageServiceImplementation implements MessageService {
 
     @Override
     public List<Message> findAll() {
-        List<Message> all = messageRepository.findAllByOrderByPositionDesc();
+        List<Message> all = messageRepository.findAllByOrderByIdDesc();
 
 
         return all;

@@ -4,8 +4,7 @@ export class Row extends React.Component {
 
     constructor(props) {
         super(props);
-        this.state = {edit: this.props.id < 0};
-        this.textarea = null;
+        this.state = {edit: this.props.added};
         this.edit = this.edit.bind(this);
         this.removeRow = this.removeRow.bind(this);
         this.edit = this.edit.bind(this)
@@ -28,7 +27,7 @@ export class Row extends React.Component {
     }
 
     save() {
-        this.setState({edit: false, changed: this.refs.input.value !== this.props.text});
+        this.setState({edit: false});
         this.props.textUpdate(this.props.id, this.refs.input.value);
     }
 
@@ -52,10 +51,11 @@ export class Row extends React.Component {
     }
 
     render() {
+        let textarea = null;
         if (!this.state.edit) {
-            this.textarea = <span className="row-text">{this.props.text}</span>;
+            textarea = <span className="row-text">{this.props.text}</span>;
         } else {
-            this.textarea =
+            textarea =
                 <input className="row-edit" placeholder="Enter text" type="text" onBlur={this.save.bind(this)}
                        defaultValue={this.props.text} ref="input"/>;
         }
@@ -64,7 +64,7 @@ export class Row extends React.Component {
             classValue += " changed";
         return (
             <div className={classValue} onClick={this.edit}>
-                {this.textarea}
+                {textarea}
                 <button className="remove" onClick={this.removeRow}>×</button>
             </div>
         )

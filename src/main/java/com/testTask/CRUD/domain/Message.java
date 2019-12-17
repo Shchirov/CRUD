@@ -17,13 +17,8 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Message {
-
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
     private BigInteger id;
-
-
-    private int position;
 
     private String text;
 

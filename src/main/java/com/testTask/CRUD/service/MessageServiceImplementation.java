@@ -44,11 +44,4 @@ public class MessageServiceImplementation implements MessageService {
 
         messageRepository.deleteById(id);
     }
-
-    @Override
-    public void updateMessages(final List<Message> messages) {
-
-        messageRepository.saveAll(messages);
-    }
-
 }

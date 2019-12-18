@@ -38,13 +38,6 @@ public class MessageController {
         serviceImplementation.deleteById(id);
     }
 
-    @PutMapping
-    public void updateMessages(@RequestBody List<Message> messages)
-    {
-        serviceImplementation.updateMessages(messages);
-
-    }
-
 }
 
     

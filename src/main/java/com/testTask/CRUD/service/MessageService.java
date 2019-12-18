@@ -12,5 +12,4 @@ public interface MessageService {
     List<Message> findAll();
     void saveAll(List<Message> messages);
     void deleteById(BigInteger id);
-    void updateMessages(List<Message> messages);
 }

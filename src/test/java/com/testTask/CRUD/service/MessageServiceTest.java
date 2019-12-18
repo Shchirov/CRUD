@@ -26,8 +26,7 @@ class MessageServiceTest {
 
     @Autowired
     private MessageService messageService;
-/*
-    @Test
+  /*  @Test
     void findById() {
         final BigInteger id = BigInteger.valueOf(1L);
         final Message message = new Message(id, "test");

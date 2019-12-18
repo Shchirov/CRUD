@@ -24,20 +24,17 @@ public class MessageController {
     @GetMapping
     public List<Message> list() {
         List<Message> all = serviceImplementation.findAll();
-        System.out.println(all);
         return all;
     }
 
 
     @PostMapping
     public void add(@RequestBody List<Message> message) {
-        System.out.println("post");
         serviceImplementation.saveAll(message);
     }
 
     @DeleteMapping("{id}")
     public void delete(@PathVariable("id") BigInteger id) {
-        System.out.println("delete");
         serviceImplementation.deleteById(id);
     }
 

@@ -26,7 +26,7 @@ class MessageServiceTest {
 
     @Autowired
     private MessageService messageService;
-
+/*
     @Test
     void findById() {
         final BigInteger id = BigInteger.valueOf(1L);
@@ -42,7 +42,7 @@ class MessageServiceTest {
         Mockito.when(messageRepository.findAll()).thenReturn(expectedMessages);
         final List<Message> resultMessages = messageService.findAll();
         Assertions.assertEquals(expectedMessages, resultMessages);
-    }
+    }*/
 
 
 

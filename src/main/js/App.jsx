@@ -6,13 +6,14 @@ class App extends React.Component {
 
     constructor(props) {
         super(props);
-        this.state = {maxPos: 0, rows: [/*{id: null, text: null, changed: false}*/]};
+        this.state = {maxPos: 0, rows: []};
         this.addRow = this.addRow.bind(this);
         this.save = this.save.bind(this);
         this.remove = this.remove.bind(this);
         this.textUpdate = this.textUpdate.bind(this);
         this.updateRows = this.updateRows.bind(this);
         this.updatePos = this.updatePos.bind(this);
+        this.addedId = -1;
     }
 
     componentDidMount() {
@@ -34,8 +35,9 @@ class App extends React.Component {
         })
             .then(res => res.json())
             .then(res => {
-                this.setState({rows: res.map(x => ({id: x.id, text: x.text, changed: false}))});
-                this.state.rows.map(function(o) { updatePos(o.id) });
+                this.setState({rows: res.map(x => ({id: x.id, text: x.text, changed: false,
+                        position:x.position}))});
+                this.state.rows.map(function(o) { updatePos(o.position) });
             });
     }
 
@@ -45,14 +47,20 @@ class App extends React.Component {
 
     addRow() {
         let newRow = this.state.rows;
-        newRow.unshift({id: this.state.maxPos + 1, text: ""});
-        this.setState({maxPos: this.state.maxPos + 1, rows: newRow});
+        newRow.unshift({id: this.addedId, text: "", position: this.state.maxPos});
+        this.setState({maxPos: this.state.maxPos + 1});
+        this.setState({rows: newRow});
+        this.addedId -= 1;
     }
 
     save() {
         let data = this.state
             .rows
-            .filter(x => x.changed);
+            .filter(x => x.changed)
+            .map(function (r) {
+                return {id: r.id < 0 ? "null" : r.id, text: r.text, position: r.position};
+            });
+        console.log(data);
         fetch('http://localhost:7070/message/', {
             body: JSON.stringify(data),
             headers: {
@@ -77,7 +85,7 @@ class App extends React.Component {
                     if (r.id != id) {
                         return r;
                     } else {
-                        return {id: r.id, text: text, changed: text !== r.text};
+                        return {id: r.id, text: text, changed: true,position: r.position};
                     }
                 });
             this.setState({rows: data});
@@ -97,7 +105,7 @@ class App extends React.Component {
                             .rows
                             .map((row, index) => (
                                     <Row id={row.id} text={row.text} remove={this.remove} key={row.id}
-                                         added={row.text === ""} textUpdate={this.textUpdate} changed={row.changed}/>
+                                      added={row.text===""}  textUpdate={this.textUpdate} changed={row.changed}/>
                             ))
                     }
                 </div>

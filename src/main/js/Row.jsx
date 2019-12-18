@@ -57,7 +57,7 @@ export class Row extends React.Component {
         } else {
             textarea =
                 <input className="row-edit" placeholder="Enter text" type="text" onBlur={this.save.bind(this)}
-                       defaultValue={this.props.text} ref="input"/>;
+                       defaultValue={this.props.text} ref="input"  />;
         }
         let classValue = "row";
         if (this.props.changed)

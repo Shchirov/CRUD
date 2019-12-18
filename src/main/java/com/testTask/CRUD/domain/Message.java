@@ -18,8 +18,9 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 public class Message {
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private BigInteger id;
-
+    private BigInteger position;
     private String text;
 
 

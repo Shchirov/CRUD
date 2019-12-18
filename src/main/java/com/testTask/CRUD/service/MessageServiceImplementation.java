@@ -5,13 +5,14 @@ import com.testTask.CRUD.repository.MessageRepository;
 import org.hibernate.mapping.Collection;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import java.math.BigInteger;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
-@Component
+@Service
 public class MessageServiceImplementation implements MessageService {
 
     private MessageRepository messageRepository;
@@ -28,9 +29,7 @@ public class MessageServiceImplementation implements MessageService {
 
     @Override
     public List<Message> findAll() {
-        List<Message> all = messageRepository.findAllByOrderByIdDesc();
-
-
+        List<Message> all = messageRepository.findAllByOrderByPositionDesc();
         return all;
     }
 
